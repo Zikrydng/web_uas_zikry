@@ -12,6 +12,12 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+ON_SERVER=config('ON_SERVER', default=False, cast=bool)
+if ON_SERVER:
+    SCURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SCURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SCURE = True
+    CSRF_COOKIE_SCURE =True
 
 # Application definition
 
