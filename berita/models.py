@@ -20,7 +20,15 @@ class Kategori(models.Model):
 
 class Artikel(models.Model):
     judul = models.CharField(max_length=225)
-    isi = RichTextField(blank=True, null=True)
+    isi = RichTextUploadingField(blank=True, null=True,
+        config_name='special',
+        external_plugin_resources=[(
+            'youtube',
+            'http://zikry.kelasb22.my.id/static/ckeditor_plugins/youtube/youtube/',
+            'plugin.js',
+        )]
+    )
+
     # isi = models.TextField(blank=True, null=True)
     kategori = models.ForeignKey(Kategori, on_delete=models.SET_NULL, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
