@@ -14,7 +14,7 @@
                         <p>No thumbnail available</p>
                     {% endif %}
                     <h3 class="title">{{ artikel.judul }}</h3>
-                    <p>{{ artikel.isi }}</p>
+                    <p>{{ artikel.isi|safe }}</p>
 
                     <blockquote>
                         <!-- <p>
