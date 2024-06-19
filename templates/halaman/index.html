@@ -1,0 +1,117 @@
+{% extends 'halaman/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('{% static "halaman/assets/img/berita.jpg" %}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h1 class="title">Selamat Datang Di Beritaku</h1>
+                <h4>The last 48 hours of my life were total madness. This is what I did.</h4>
+                <br />
+                <a href="#pablo" class="btn btn-rose btn-round btn-lg">
+                    <i class="material-icons">format_align_left</i> Read Article
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main main-raised">
+    <div class="container">
+        <div class="section section-text">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h3 class="title">Berita Terkini</h3>
+                    <p>Menonton pertandingan Indonesia vs Filipina pada 11 Juni 2024 di Stadion Gelora Bung Karno adalah pengalaman yang tak terlupakan.
+                        Sebagai pengamat pariwisata, saya merasakan euforia dan atmosfer yang sangat hidup serta bersemangat yang hanya bisa dihasilkan oleh sebuah pertandingan sepak bola kelas dunia seperti ini.
+                        
+                        Dari menit pertama, dukungan untuk tim nasional Indonesia terasa menggema di seluruh stadion. Hujan yang sempat mengguyur deras jakarta tak mengurangi semangat para pendukung yang datang dari berbagai penjuru negeri.
+                    <br /> <br />
+                    Mereka bernyanyi, bersorak, dan meneriakkan dukungan untuk Timnas Garuda. Indonesia berhasil memimpin lebih awal dengan gol dari Thom Haye pada menit ke-32, diikuti oleh gol kedua dari Rizky Ridho di menit ke-56. Skor akhir 2-0 memastikan kemenangan yang gemilang bagi Indonesia.
+                    </p>
+
+                    <blockquote>
+                        <p>
+                            <strong>Saksikan Berita Berita Menarik Seputar Sepak Bola</strong>
+                        </p>
+                        <small>
+                        Berita Indonesia
+                        </small>
+                    </blockquote>
+                </div>
+
+                <div class="section col-md-10 col-md-offset-1">
+                    <div class="col-md-4">
+                        <img class="img-rounded img-responsive img-raised mb-5" alt="Raised Image" src="{% static 'halaman/assets/img/examples/soccer.jpg' %}">
+                    </div>
+                    <div class="col-md-4">
+                        <img class="img-rounded img-responsive img-raised mb-5" alt="Raised Image" src="{% static 'halaman/assets/img/examples/soccers.jpg' %}">
+                    </div>
+                    <div class="col-md-4">
+                        <img class="img-rounded img-responsive img-raised mb-5" alt="Raised Image" src="{% static 'halaman/assets/img/examples/soccerss.jpg' %}">
+                    </div>
+                </div>
+                   
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title text-center">Berita Lainnya</h2>
+                <br />
+
+                <ul class="nav nav-pills nav-pills-rose" style="display: flex; justify-content: center; margin-bottom: 10vh;">
+                    <li {% if menu_aktif == 'ALL' %}class="active"{% endif %}>
+                        <a href="/">Profile</a>
+                    </li>
+                    {% for kategori in data_kategori %}
+                    <li {% if menu_aktif == kategori.nama %}class="active"{% endif %}>
+                        <a href="/?kategori={{ kategori.nama }}">{{ kategori.nama }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="row">
+                    {% for artikel in data_artikel %}
+                    <div class="col-md-4">
+                        <div class="card card-blog">
+                            <div class="card-image">
+                                <a href="{% url 'detail_artikel' artikel.slug %}">
+                                    {% if artikel.thumbnail %}
+                                    <img class="img img-raised" src="{{ artikel.thumbnail.url }}" />
+                                    {% else %}
+                                    <img src='{% static 'halaman/assets/img/image_placeholder.jpg' %}' alt="" />
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="card-content">
+                                <h6 class="category text-info">{{ artikel.kategori.nama }}</h6>
+                                <h4 class="card-title">
+                                    <a href="{% url 'detail_artikel' artikel.slug %}">{{ artikel.judul }}</a>
+                                </h4>
+                                <p class="card-description">
+                                    {{ artikel.isi|truncatechars:200 }}<a href="{% url 'detail_artikel' artikel.slug %}"> Read More </a>
+                                </p>
+                                <span class="label label-info">{{ artikel.created_at|date:"d M Y" }}</span>
+                            </div>
+                        </div>
+                    {% empty %}
+                    <div class="col" style="margin: 30px:">
+                        <p class="text-center">Berita Tidak Ada</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<!-- Your custom JavaScript here -->
+{% endblock js %}
